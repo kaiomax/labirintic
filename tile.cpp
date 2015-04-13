@@ -3,18 +3,18 @@
 using namespace std;
 
 void Tile::setType(Tile::Type type) {
-    _type = type;
+    this->type = type;
 }
 
-void Tile::getType() {
-    switch(_type) {
+char Tile::getType() {
+    switch(this->type) {
         case DEFAULT:
-            cout << "." << endl; break;
+            return '.';
         case WALL:
-            cout << "#" << endl; break;
+            return '#';
         case ALFA:
-            cout << "o" << endl; break;
+            return 'o';
         case OMEGA:
-            cout << "X" << endl; break;
+            return 'X';
     }
 }

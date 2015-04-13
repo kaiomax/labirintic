@@ -1,20 +1,26 @@
 #include <iostream>
 #include "tile.h"
+#include "board.h"
 using namespace std;
 
+#define ROWS 14
+#define COLS 14
+
 int main() {
+    Board board(ROWS, COLS);
 
-    Tile * tiles;
-    tiles = new Tile[4];
+    board.tile(0,0) -> setType(Tile::ALFA);
+    board.tile(13,13) -> setType(Tile::OMEGA);
 
-    tiles[0].setType(Tile::DEFAULT);
-    tiles[0].getType();
-    tiles[1].setType(Tile::WALL);
-    tiles[1].getType();
-    tiles[2].setType(Tile::ALFA);
-    tiles[2].getType();
-    tiles[3].setType(Tile::OMEGA);
-    tiles[3].getType();
+    board.tile(3,5) -> setType(Tile::WALL);
+    board.tile(4,5) -> setType(Tile::WALL);
+    board.tile(5,5) -> setType(Tile::WALL);
+    board.tile(6,5) -> setType(Tile::WALL);
+    board.tile(6,6) -> setType(Tile::WALL);
+    board.tile(6,7) -> setType(Tile::WALL);
+    board.tile(6,8) -> setType(Tile::WALL);
+
+    board.draw();
 
     return 0;
 }

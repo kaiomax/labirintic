@@ -11,9 +11,9 @@ public:
     };
 
     void setType(Tile::Type type);
-    void getType();
+    char getType();
 private:
-    Type _type;
+    Type type;
 };
 
 #endif
