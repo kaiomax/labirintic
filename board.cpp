@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include "tile.h"
 #include "board.h"
 using namespace std;
@@ -18,6 +19,8 @@ Board::Board(int rows, int cols) {
 
 
 void Board::draw() {
+    system("clear");
+
     for (int i = 0; i < (this -> rows); ++i) {
         for (int j = 0; j < (this -> cols); ++j) {
             cout << this -> tiles[i][j].getType() << " ";
@@ -28,4 +31,9 @@ void Board::draw() {
 
 Tile * Board::tile(int row, int col) {
     return &this -> tiles[row][col];
+}
+
+void Board::setLabyrinth(int (*array)[2], int length) {
+    for (int i = 0; i < length; ++i)
+        this -> tile(array[i][0], array[i][1]) -> setType(Tile::WALL);
 }
