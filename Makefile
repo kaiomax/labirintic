@@ -6,8 +6,11 @@ tile.o: tile.cpp tile.h
 board.o: board.cpp board.h
 	g++ board.cpp -c
 
-game: game.cpp tile.o board.o
-	g++ game.cpp tile.o board.o -o game
+character.o: character.cpp character.h
+	g++ character.cpp -c
+
+game: game.cpp tile.o board.o character.o
+	g++ game.cpp tile.o board.o character.o -o game
 
 clean:
 	rm tile.o game

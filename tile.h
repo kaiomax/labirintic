@@ -7,7 +7,8 @@ public:
         DEFAULT,
         WALL,
         ALFA,
-        OMEGA
+        OMEGA,
+        LOCKED
     };
 
     void setType(Tile::Type type);

@@ -16,5 +16,7 @@ char Tile::getType() {
             return 'o';
         case OMEGA:
             return 'X';
+        case LOCKED:
+            return '@';
     }
 }

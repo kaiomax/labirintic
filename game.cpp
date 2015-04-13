@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "tile.h"
 #include "board.h"
+#include "character.h"
 using namespace std;
 
 #define ROWS 14
@@ -9,9 +10,9 @@ using namespace std;
 
 int main() {
     Board board(ROWS, COLS);
+    Character player(&board, 5, 0);
 
-    board.tile(0,0) -> setType(Tile::ALFA);
-    board.tile(13,13) -> setType(Tile::OMEGA);
+    char input;
 
     int labyrinthTiles[16][2] = {
         {3,5},{4,5},{5,5},{6,5},{6,6},{6,7},{6,8},{6,9},{6,10},{6,11},
@@ -19,9 +20,19 @@ int main() {
     };
 
     board.setLabyrinth(labyrinthTiles, 16);
+    board.tile(13,13) -> setType(Tile::OMEGA);
 
     board.draw();
 
+    while(input != 'q') {
+        input = getchar();
+
+        if (input == 's' || input == 'd' || input == 'w' || input == 'a') {
+            player.move(input);
+        }
+
+        board.draw();
+    }
 
     return 0;
 }
