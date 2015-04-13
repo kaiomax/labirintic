@@ -13,4 +13,4 @@ game: game.cpp tile.o board.o character.o
 	g++ game.cpp tile.o board.o character.o -o game
 
 clean:
-	rm tile.o game
+	rm tile.o board.o character.o game
