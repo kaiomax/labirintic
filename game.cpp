@@ -24,7 +24,7 @@ int main() {
 
     board.draw();
 
-    while(input != 'q') {
+    while(input != 'q' && player.isAlive && !player.isWinner) {
         input = getchar();
 
         if (input == 's' || input == 'd' || input == 'w' || input == 'a') {
@@ -32,6 +32,12 @@ int main() {
         }
 
         board.draw();
+    }
+
+    if(!player.isAlive) {
+        cout << "Você perdeu!" << endl;
+    } else if(player.isWinner) {
+        cout << "Parabéns! Você ganhou!" << endl;
     }
 
     return 0;

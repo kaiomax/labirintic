@@ -5,6 +5,7 @@ class Character {
 public:
     Character(Board * board, int row, int col);
     void move(char direction);
+    bool isAlive, isWinner;
 
 private:
     Board * board;
@@ -13,7 +14,7 @@ private:
     } position;
 
     void setPosition();
-    void lockPosition();
+    void lockOldPosition();
 };
 
 #endif

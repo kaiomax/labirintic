@@ -7,9 +7,9 @@ public:
     void draw();
     Tile * tile(int row, int col);
     void setLabyrinth(int (*array)[2], int length);
+    int rows, cols;
 
 private:
-    int rows, cols;
     Tile ** tiles;
 };
 

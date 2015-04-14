@@ -13,7 +13,6 @@ public:
 
     void setType(Tile::Type type);
     char getType();
-private:
     Type type;
 };
 
