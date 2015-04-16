@@ -5,16 +5,18 @@ class Character {
 public:
     Character(Board * board, int row, int col);
     void move(char direction);
-    bool isAlive, isWinner;
+    bool isWinner, canMove;
 
 private:
     Board * board;
     struct Position {
         int row, col;
-    } position;
+    } currentPosition, oldPosition, newPosition;
 
     void setPosition();
     void lockOldPosition();
+    bool checkAvailableMove(int row, int col);
+    bool movesAvailable(int row, int col);
 };
 
 #endif

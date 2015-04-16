@@ -10,7 +10,7 @@ using namespace std;
 
 int main() {
     Board board(ROWS, COLS);
-    Character player(&board, 5, 0);
+    Character player(&board, 2, 5);
 
     char input;
 
@@ -24,21 +24,17 @@ int main() {
 
     board.draw();
 
-    while(input != 'q' && player.isAlive && !player.isWinner) {
+    while(input != 'q' && player.canMove && !player.isWinner) {
         input = getchar();
 
-        if (input == 's' || input == 'd' || input == 'w' || input == 'a') {
+        if (input == 's' || input == 'd' || input == 'w' || input == 'a')
             player.move(input);
-        }
 
         board.draw();
     }
 
-    if(!player.isAlive) {
-        cout << "Você perdeu!" << endl;
-    } else if(player.isWinner) {
+    if(player.isWinner)
         cout << "Parabéns! Você ganhou!" << endl;
-    }
 
     return 0;
 }

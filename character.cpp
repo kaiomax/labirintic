@@ -2,58 +2,86 @@
 #include "tile.h"
 #include "board.h"
 #include "character.h"
+using namespace std;
 
 Character::Character(Board * board, int row, int col) {
     this -> board = board;
-    this -> position.row = row;
-    this -> position.col = col;
-    this -> board -> tile(position.row, position.col) -> setType(Tile::ALFA);
-    this -> isAlive = true;
+    this -> currentPosition.row = row;
+    this -> currentPosition.col = col;
+    this -> board -> tile(currentPosition.row, currentPosition.col) -> setType(Tile::ALFA);
     this -> isWinner = false;
 }
 
 void Character::move(char direction) {
-    this -> lockOldPosition();
+    oldPosition = currentPosition;
+    newPosition = currentPosition;
+
     switch(direction) {
         case 'w':
-            this -> position.row--;
+            newPosition.row--;
             break;
         case 'd':
-            this -> position.col++;
+            newPosition.col++;
             break;
         case 's':
-            this -> position.row++;
+            newPosition.row++;
             break;
         case 'a':
-            this -> position.col--;
+            newPosition.col--;
             break;
     }
-    this -> setPosition();
+
+    setPosition();
 }
 
 void Character::setPosition() {
     Tile * tile;
+
+    if( checkAvailableMove(newPosition.row, newPosition.col ) ) {
+        currentPosition = newPosition;
+        tile = board -> tile(newPosition.row, newPosition.col);
+
+        if(tile -> type == Tile::OMEGA)
+            isWinner = true;
+
+        tile -> setType(Tile::ALFA);
+        board -> tile(oldPosition.row, oldPosition.col) -> setType(Tile::LOCKED);
+    }
+
+    canMove = movesAvailable(currentPosition.row, currentPosition.col);
+}
+
+bool Character::checkAvailableMove(int row, int col) {
+    Tile * tile;
     Tile::Type tileType;
 
-    if(position.col < 0 || position.row > (this -> board -> rows - 1) || position.col > (this -> board -> cols - 1) || position.row < 0) {
-        this -> isAlive = false;
+    if( col < 0 || row > (board -> rows - 1) ||
+        row < 0 || col > (board -> cols - 1) ) {
+        return false;
     } else {
-        tile = this -> board -> tile(position.row, position.col);
+        tile = board -> tile(row, col);
         tileType = tile -> type;
 
-        if (tileType == Tile::WALL || tileType == Tile::LOCKED )
-        {
-            this -> isAlive = false;
-        } else {
-            tile -> setType(Tile::ALFA);
-        }
-
-        if (tileType == Tile::OMEGA) {
-            this -> isWinner = true;
-        }
+        return tileType != Tile::WALL && tileType != Tile::LOCKED;
     }
 }
 
+bool Character::movesAvailable(int row, int col) {
+    int moves[4][2] = {
+        {row, col + 1},
+        {row, col - 1},
+        {row + 1, col},
+        {row - 1, col}
+    };
+    int totalMoves = 0;
+
+    for (int i = 0; i < 4; ++i)
+        if( checkAvailableMove(moves[i][0], moves[i][1]) )
+            totalMoves += 1;
+
+    return totalMoves > 0;
+}
+
 void Character::lockOldPosition() {
-    this -> board -> tile(position.row, position.col) -> setType(Tile::LOCKED);
+    board -> tile(currentPosition.row, currentPosition.col) -> setType(Tile::LOCKED);
 }
