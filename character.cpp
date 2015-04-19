@@ -1,15 +1,14 @@
 #include <iostream>
 #include "tile.h"
+#include "labyrinth.h"
 #include "board.h"
 #include "character.h"
 using namespace std;
 
-Character::Character(Board * board, int row, int col) {
+Character::Character(Board * board) {
     this -> board = board;
-    this -> currentPosition.row = row;
-    this -> currentPosition.col = col;
-    this -> board -> tile(currentPosition.row, currentPosition.col) -> setType(Tile::ALFA);
     this -> isWinner = false;
+    goToStartPosition();
 }
 
 void Character::move(char direction) {
@@ -84,4 +83,9 @@ bool Character::movesAvailable(int row, int col) {
 
 void Character::lockOldPosition() {
     board -> tile(currentPosition.row, currentPosition.col) -> setType(Tile::LOCKED);
+}
+
+void Character::goToStartPosition() {
+    this -> currentPosition.row = this -> board -> labyrinth -> alfa.row;
+    this -> currentPosition.col = this -> board -> labyrinth -> alfa.col;
 }

@@ -3,11 +3,12 @@
 
 class Board {
 public:
-    Board(int rows, int cols);
+    Board(int rows, int cols, Labyrinth * labyrinth);
     void draw();
     Tile * tile(int row, int col);
-    void setLabyrinth(int (*array)[2], int length);
     int rows, cols;
+    Labyrinth * labyrinth;
+    void initialize();
 
 private:
     Tile ** tiles;

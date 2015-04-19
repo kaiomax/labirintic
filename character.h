@@ -3,9 +3,10 @@
 
 class Character {
 public:
-    Character(Board * board, int row, int col);
+    Character(Board * board);
     void move(char direction);
     bool isWinner, canMove;
+    void goToStartPosition();
 
 private:
     Board * board;
