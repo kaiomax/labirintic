@@ -4,7 +4,7 @@
 class Tile {
 public:
     enum Type {
-        DEFAULT,
+        PATH,
         WALL,
         ALFA,
         OMEGA,

@@ -1,13 +1,14 @@
 #include <iostream>
 #include <allegro5/allegro.h>
 #include "tile.h"
-#include "labyrinth.h"
 #include "board.h"
+#include "maze.h"
 #include "character.h"
 using namespace std;
 
-Character::Character(Board * board) {
+Character::Character(Board * board, Maze * maze) {
     this -> board = board;
+    this -> maze = maze;
     this -> isWinner = false;
     goToStartPosition();
 }
@@ -30,7 +31,7 @@ void Character::move(int key) {
         case ALLEGRO_KEY_W:
             newPosition.row--;
             break;
-        default:
+        PATH:
             validMove = false;
             break;
     }
@@ -88,6 +89,6 @@ bool Character::movesAvailable(int row, int col) {
 }
 
 void Character::goToStartPosition() {
-    this -> currentPosition.row = this -> board -> labyrinth -> alfa.row;
-    this -> currentPosition.col = this -> board -> labyrinth -> alfa.col;
+    this -> currentPosition.row = this -> maze -> alfa.row;
+    this -> currentPosition.col = this -> maze -> alfa.col;
 }

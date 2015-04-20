@@ -4,32 +4,27 @@
 #include <allegro5/allegro_primitives.h>
 #include "utils.h"
 #include "tile.h"
-#include "labyrinth.h"
 #include "board.h"
+#include "maze.h"
 #include "character.h"
 using namespace std;
 using namespace constants;
 
 int main() {
-    int alfa[2] = {2,5};
-    int omega[2] = {8,13};
-    int labyrinthTiles[16][2] = {
-        {3,5},{4,5},{5,5},{6,5},{6,6},{6,7},{6,8},{6,9},{6,10},{6,11},
-        {6,12},{6,13},{7,7},{8,7},{9,7},{10,7}
-    };
     float fps = 60;
     bool endGame = false;
 
-    Labyrinth labyrinth(alfa, omega, 16, labyrinthTiles);
-    Board board(BOARD_ORDER, BOARD_ORDER, &labyrinth);
-    Character player(&board);
+    Board board;
+    Maze maze(&board);
+    maze.generate();
+    Character player(&board, &maze);
 
     al_init();
     al_install_keyboard();
     al_init_primitives_addon();
     al_set_new_display_flags(ALLEGRO_WINDOWED);
 
-    ALLEGRO_DISPLAY *display = al_create_display(DISPLAY_SIZE, DISPLAY_SIZE);
+    ALLEGRO_DISPLAY *display = al_create_display(700, 700);
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
     ALLEGRO_TIMER *timer = al_create_timer(1 / fps);
 
@@ -52,7 +47,7 @@ int main() {
         }
 
         if (!player.canMove) {
-            board.initialize();
+            maze.restart();
             player.goToStartPosition();
         }
 
