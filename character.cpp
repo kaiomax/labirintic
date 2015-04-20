@@ -1,4 +1,5 @@
 #include <iostream>
+#include <allegro5/allegro.h>
 #include "tile.h"
 #include "labyrinth.h"
 #include "board.h"
@@ -11,26 +12,31 @@ Character::Character(Board * board) {
     goToStartPosition();
 }
 
-void Character::move(char direction) {
+void Character::move(int key) {
     oldPosition = currentPosition;
     newPosition = currentPosition;
+    bool validMove = true;
 
-    switch(direction) {
-        case 'w':
-            newPosition.row--;
-            break;
-        case 'd':
+    switch(key) {
+        case ALLEGRO_KEY_D:
             newPosition.col++;
             break;
-        case 's':
+        case ALLEGRO_KEY_S:
             newPosition.row++;
             break;
-        case 'a':
+        case ALLEGRO_KEY_A:
             newPosition.col--;
+            break;
+        case ALLEGRO_KEY_W:
+            newPosition.row--;
+            break;
+        default:
+            validMove = false;
             break;
     }
 
-    setPosition();
+    if (validMove)
+        setPosition();
 }
 
 void Character::setPosition() {
@@ -47,7 +53,7 @@ void Character::setPosition() {
         board -> tile(oldPosition.row, oldPosition.col) -> setType(Tile::LOCKED);
     }
 
-    canMove = movesAvailable(currentPosition.row, currentPosition.col);
+    this -> canMove = movesAvailable(currentPosition.row, currentPosition.col);
 }
 
 bool Character::checkAvailableMove(int row, int col) {
@@ -79,10 +85,6 @@ bool Character::movesAvailable(int row, int col) {
             totalMoves += 1;
 
     return totalMoves > 0;
-}
-
-void Character::lockOldPosition() {
-    board -> tile(currentPosition.row, currentPosition.col) -> setType(Tile::LOCKED);
 }
 
 void Character::goToStartPosition() {

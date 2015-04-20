@@ -12,7 +12,7 @@ public:
     };
 
     void setType(Tile::Type type);
-    char getType();
+    ALLEGRO_COLOR color();
     Type type;
 };
 

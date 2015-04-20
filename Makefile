@@ -13,7 +13,7 @@ character.o: character.cpp character.h
 	g++ character.cpp -c
 
 game: game.cpp tile.o labyrinth.o board.o character.o
-	g++ game.cpp tile.o labyrinth.o board.o character.o -o game
+	g++ game.cpp tile.o labyrinth.o board.o character.o -o game -lallegro -lallegro_primitives
 
 clean:
 	rm tile.o labyrinth.o board.o character.o game

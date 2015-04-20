@@ -1,4 +1,5 @@
 #include <iostream>
+#include <allegro5/allegro.h>
 #include "tile.h"
 using namespace std;
 
@@ -6,17 +7,17 @@ void Tile::setType(Tile::Type type) {
     this->type = type;
 }
 
-char Tile::getType() {
+ALLEGRO_COLOR Tile::color() {
     switch(this->type) {
         case DEFAULT:
-            return '.';
+            return al_map_rgb(236, 240, 241);
         case WALL:
-            return '#';
+            return al_map_rgb(149, 165, 166);
         case ALFA:
-            return 'o';
+            return al_map_rgb(241, 196, 15);
         case OMEGA:
-            return 'X';
+            return al_map_rgb(39, 174, 96);
         case LOCKED:
-            return '@';
+            return al_map_rgb(192, 57, 43);
     }
 }

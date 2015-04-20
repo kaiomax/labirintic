@@ -1,9 +1,12 @@
 #include <iostream>
-#include <cstdlib>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
+#include "utils.h"
 #include "tile.h"
 #include "labyrinth.h"
 #include "board.h"
 using namespace std;
+using namespace constants;
 
 Board::Board(int rows, int cols, Labyrinth * labyrinth) {
     this -> rows = rows;
@@ -20,8 +23,8 @@ Board::Board(int rows, int cols, Labyrinth * labyrinth) {
 void Board::initialize() {
     int row, col;
 
-    for (int i = 0; i < rows; ++i)
-        for (int j = 0; j < cols; ++j)
+    for (int i = 0; i < BOARD_ORDER; ++i)
+        for (int j = 0; j < BOARD_ORDER; ++j)
             this -> tiles[i][j].setType(Tile::DEFAULT);
 
     for (int i = 0; i < ( this -> labyrinth -> amount ); ++i) {
@@ -37,14 +40,11 @@ void Board::initialize() {
 
 
 void Board::draw() {
-    system("clear");
+    int ratio = ( DISPLAY_SIZE / BOARD_ORDER );
 
-    for (int i = 0; i < (this -> rows); ++i) {
-        for (int j = 0; j < (this -> cols); ++j) {
-            cout << this -> tiles[i][j].getType() << " ";
-        }
-        cout << endl;
-    }
+    for (int i = 0; i < BOARD_ORDER; ++i)
+        for (int j = 0; j < BOARD_ORDER; ++j)
+            al_draw_filled_rectangle(ratio*j, ratio*i, ratio*(1+j), ratio*(i+1), this -> tiles[i][j].color());
 }
 
 Tile * Board::tile(int row, int col) {

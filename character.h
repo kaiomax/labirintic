@@ -4,7 +4,7 @@
 class Character {
 public:
     Character(Board * board);
-    void move(char direction);
+    void move(int key);
     bool isWinner, canMove;
     void goToStartPosition();
 
@@ -15,7 +15,6 @@ private:
     } currentPosition, oldPosition, newPosition;
 
     void setPosition();
-    void lockOldPosition();
     bool checkAvailableMove(int row, int col);
     bool movesAvailable(int row, int col);
 };
