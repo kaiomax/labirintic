@@ -3,7 +3,7 @@
 
 namespace constants
 {
-    const int DISPLAY_SIZE = 700, BOARD_ORDER = 35;
+    const int DISPLAY_SIZE = 700, BOARD_ORDER = 25;
 }
 
 #endif

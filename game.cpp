@@ -16,7 +16,6 @@ int main() {
 
     Board board;
     Maze maze(&board);
-    maze.generate();
     Character player(&board, &maze);
 
     al_init();
@@ -32,7 +31,7 @@ int main() {
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_start_timer(timer);
 
-    while(!endGame && !player.isWinner) {
+    while(!endGame) {
 
         ALLEGRO_EVENT event;
         al_wait_for_event(event_queue, &event);
@@ -49,6 +48,12 @@ int main() {
         if (!player.canMove) {
             maze.restart();
             player.goToStartPosition();
+        }
+
+        if (player.isWinner) {
+            maze.generate();
+            player.goToStartPosition();
+            player.isWinner = false;
         }
 
         if (event.type == ALLEGRO_EVENT_TIMER) {

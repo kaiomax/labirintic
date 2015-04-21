@@ -16,7 +16,7 @@ ALLEGRO_COLOR Tile::color() {
         case ALFA:
             return al_map_rgb(241, 196, 15);
         case OMEGA:
-            return al_map_rgb(39, 174, 96);
+            return al_map_rgb(22, 160, 133);
         case LOCKED:
             return al_map_rgb(192, 57, 43);
     }

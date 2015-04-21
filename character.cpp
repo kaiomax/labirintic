@@ -1,10 +1,12 @@
 #include <iostream>
 #include <allegro5/allegro.h>
+#include "utils.h"
 #include "tile.h"
 #include "board.h"
 #include "maze.h"
 #include "character.h"
 using namespace std;
+using namespace constants;
 
 Character::Character(Board * board, Maze * maze) {
     this -> board = board;
@@ -19,19 +21,19 @@ void Character::move(int key) {
     bool validMove = true;
 
     switch(key) {
-        case ALLEGRO_KEY_D:
-            newPosition.col++;
-            break;
-        case ALLEGRO_KEY_S:
-            newPosition.row++;
-            break;
-        case ALLEGRO_KEY_A:
-            newPosition.col--;
-            break;
-        case ALLEGRO_KEY_W:
+        case ALLEGRO_KEY_UP:
             newPosition.row--;
             break;
-        PATH:
+        case ALLEGRO_KEY_RIGHT:
+            newPosition.col++;
+            break;
+        case ALLEGRO_KEY_DOWN:
+            newPosition.row++;
+            break;
+        case ALLEGRO_KEY_LEFT:
+            newPosition.col--;
+            break;
+        default:
             validMove = false;
             break;
     }
@@ -61,8 +63,8 @@ bool Character::checkAvailableMove(int row, int col) {
     Tile * tile;
     Tile::Type tileType;
 
-    if( col < 0 || row > (board -> rows - 1) ||
-        row < 0 || col > (board -> cols - 1) ) {
+    if( col < 0 || row > (BOARD_ORDER - 1) ||
+        row < 0 || col > (BOARD_ORDER - 1) ) {
         return false;
     } else {
         tile = board -> tile(row, col);
